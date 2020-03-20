@@ -1,5 +1,6 @@
 const {ApolloServer} = require('apollo-server')
 const gql = require('graphql-tag')
+const mongoose = require('mongoose')
 require('dotenv').config()
 
 
@@ -22,7 +23,12 @@ const server = new ApolloServer({
 
 const port = process.env.PORT || 5000
 
-server.listen({
-    port
-}).then(res => console.log(`Server is running on port ${res.url}`))
-  .catch(error => console.log({error}))
+mongoose.connect(
+    process.env.MONGODB_URL, 
+    { useNewUrlParser: true, useUnifiedTopology: true }
+    ).then(() => {
+        console.log('Server connected to the MongoDB database')
+        return server.listen({port})
+    }).then(res => {
+        console.log(`Server is running on port ${res.url}`)
+    }).catch(error => console.log({error}))
