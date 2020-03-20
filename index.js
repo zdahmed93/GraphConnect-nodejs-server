@@ -1,5 +1,7 @@
 const {ApolloServer} = require('apollo-server')
 const gql = require('graphql-tag')
+require('dotenv').config()
+
 
 const typeDefs = gql`
     type Query {
