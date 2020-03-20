@@ -6,15 +6,8 @@ const {importSchema} = require('graphql-import')
 require('dotenv').config()
 
 const Post = require('./models/Post')
+const resolvers = require('./graphql/resolvers')
 
-const resolvers = {
-    Query: {
-        async getPosts() {
-            const posts = await Post.find()
-            return posts
-        }
-    }
-}
 
 const server = new ApolloServer({
     typeDefs: importSchema('./graphql/schema.graphql'),
