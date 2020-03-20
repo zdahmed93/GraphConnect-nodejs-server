@@ -35,7 +35,8 @@ input LoginPayload {
 }
 
 type Query {
-        getPosts: [Post!]!
+        posts: [Post!]!
+        post(id: ID!): Post
     }
 
 type Mutation {

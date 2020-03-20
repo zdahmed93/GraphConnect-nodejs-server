@@ -4,9 +4,21 @@ const checkAuth = require('../../utilities/checkAuth')
 
 module.exports = {
     Query: {
-        async getPosts() {
+        async posts() {
             const posts = await Post.find()
             return posts
+        },
+        async post(parent, args, context, info) {
+            try {
+                const post = await Post.findById(args.id)
+                if (post) {
+                    return post
+                } else {
+                    return new Error('Post not found')
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
     },
     Mutation: {
