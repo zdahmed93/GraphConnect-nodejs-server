@@ -43,4 +43,5 @@ type Mutation {
     register(data: RegisterPayload!): AuthPayload
     login(data: LoginPayload!): AuthPayload
     createPost(body: String!): Post
+    deletePost(id: ID!): String
 }
