@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js --ext js,graphql"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
     "apollo-server": "^2.11.0",
     "dotenv": "^8.2.0",
     "graphql": "^14.6.0",
+    "graphql-import": "^1.0.1",
     "mongoose": "^5.9.5"
   }
 }
