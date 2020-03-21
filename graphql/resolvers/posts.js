@@ -24,7 +24,7 @@ module.exports = {
         }
     },
     Mutation: {
-        async createPost(parent, args, {req}, info) {
+        async createPost(parent, args, {req, pubsub}, info) {
             const user = checkAuth(req);
             try {
                 const post = await new Post({
@@ -34,6 +34,9 @@ module.exports = {
                     user: user.id
                 }).save()
                 user.password = undefined
+                pubsub.publish('NEW_POST', {
+                    newPost: post
+                })
                 return post
             } catch (error) {
                 console.log(error)
@@ -77,6 +80,11 @@ module.exports = {
             } catch (error) {
                 console.log(error)
             }
+        }
+    },
+    Subscription: {
+        newPost: {
+            subscribe: (parent, args, {pubsub}, info) => pubsub.asyncIterator('NEW_POST') 
         }
     }
 }

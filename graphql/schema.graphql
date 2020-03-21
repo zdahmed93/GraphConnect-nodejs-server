@@ -63,3 +63,7 @@ type Mutation {
     deleteComment(postId: ID!, commentId: ID!): Post!
     toggleLikePost(postId: ID!): Post!
 }
+
+type Subscription {
+    newPost: Post!
+}

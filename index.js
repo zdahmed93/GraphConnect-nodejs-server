@@ -1,4 +1,4 @@
-const {ApolloServer} = require('apollo-server')
+const {ApolloServer, PubSub} = require('apollo-server')
 const gql = require('graphql-tag')
 const mongoose = require('mongoose')
 const {importSchema} = require('graphql-import')
@@ -8,11 +8,12 @@ require('dotenv').config()
 const Post = require('./models/Post')
 const resolvers = require('./graphql/resolvers')
 
+const pubsub = new PubSub()
 
 const server = new ApolloServer({
     typeDefs: importSchema('./graphql/schema.graphql'),
     resolvers,
-    context: ({req}) => ({req})
+    context: ({req}) => ({req, pubsub})
 })
 
 const port = process.env.PORT || 5000
