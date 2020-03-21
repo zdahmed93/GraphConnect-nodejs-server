@@ -14,5 +14,11 @@ module.exports = {
     },
     Subscription: {
         ...postsResolvers.Subscription
+    },
+    Post: {
+        commentsCount(parent, args, context, info) {
+            return parent.comments.length
+        },
+        likesCount: (parent) => parent.likes.length
     }
 }
