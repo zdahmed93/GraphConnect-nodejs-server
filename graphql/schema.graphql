@@ -4,6 +4,7 @@ type Post {
         createdAt: String!
         username: String!
         comments: [Comment!]!
+        likes: [Like!]!
     }
 
 type User {
@@ -24,6 +25,7 @@ type Comment {
 }
 
 type Like {
+    id: ID!
     username: String!
     createdAt: String!
 }
@@ -59,5 +61,5 @@ type Mutation {
     deletePost(id: ID!): String
     createComment(postId: ID!, body: String): Post!
     deleteComment(postId: ID!, commentId: ID!): Post!
-    likePost(postId: ID!): Post!
+    toggleLikePost(postId: ID!): Post!
 }

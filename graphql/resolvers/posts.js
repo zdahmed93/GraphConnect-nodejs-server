@@ -55,6 +55,28 @@ module.exports = {
             } catch (error) {
                 console.log(error)
             }
+        },
+        async toggleLikePost(parent, {postId}, {req}, info) {
+            const {username} = checkAuth(req)
+            try {
+                const post = await Post.findById(postId)
+                if (!post) {
+                    return new Error('Post not found')
+                }
+                const like = post.likes.find(like => like.username === username)
+                if (like) {
+                    post.likes = post.likes.filter(like => like.username !== username)
+                } else {
+                    post.likes.push({
+                        username,
+                        createdAt: new Date().getTime().toString()
+                    })
+                }
+                await post.save()
+                return post
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 }
