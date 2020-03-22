@@ -26,6 +26,9 @@ module.exports = {
     Mutation: {
         async createPost(parent, args, {req, pubsub}, info) {
             const user = checkAuth(req);
+            if (args.body.trim() === '') {
+                throw new Error('Post body must be not emty')
+            }
             try {
                 const post = await new Post({
                     body: args.body,
